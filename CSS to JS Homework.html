@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather App</title>
+    <style>
+      body {
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+        text-align: center;
+        margin: 0;
+        padding: 80px;
+        background: radial-gradient(
+          circle at 10% 20%,
+          rgb(255, 200, 124) 0%,
+          rgb(252, 251, 121) 90%
+        );
+        font-style: initial;
+        font-size: large;
+      }
+
+      .container {
+        background-color: rgb(249, 250, 212);
+        padding: 90px;
+        border-radius: 5px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: inline-block;
+      }
+
+      input[type="text"] {
+        padding: 10px;
+        width: 200px;
+        border: 1px solid #000000;
+        border-radius: 2px;
+      }
+
+      button {
+        padding: 10px;
+        cursor: pointer;
+        border: none;
+        background-color: #fdc672;
+        color: rgb(255, 255, 255);
+        border-radius: 4px;
+        margin-left: 10px;
+        font-family: Verdana, Geneva, Tahoma, sans-serif;
+      }
+
+      button:hover {
+        background-color: #faca93;
+      }
+
+      #current-date {
+        display: inline-block;
+        margin-top: 10px;
+      }
+
+      p {
+        text-align: left;
+      }
+    </style>
+
+    <script>
+      function displayCity(event) {
+        event.preventDefault();
+
+        const cityInput = document
+          .getElementById("city-input")
+          .value.toLowerCase();
+        const weatherInfo = document.getElementById("weather-info");
+        let temperature, humidity, formattedDate, formattedTime;
+
+        const date = new Date();
+        const options = {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        };
+        formattedDate = date.toLocaleDateString("en-US", options);
+        formattedTime = date.toLocaleTimeString("en-US");
+
+        switch (cityInput) {
+          case "california":
+            temperature = "75 °F";
+            humidity = "50%";
+            break;
+          case "canada":
+            temperature = "60 °F";
+            humidity = "65%";
+            break;
+          case "florida":
+            temperature = "65 °F";
+            humidity = "70%";
+            break;
+          case "michigan":
+            temperature = "80 °F";
+            humidity = "55%";
+            break;
+          case "texas":
+            temperature = "97 °F";
+            humidity = "56";
+            break;
+          case "omaha":
+            temperature = "67 °F";
+            humidity = "49";
+            break;
+          case "mississippi":
+            temperature = "91 °F";
+            humidity = "55";
+            break;
+          default:
+            weatherInfo.innerHTML =
+              "Sorry, we don't have the information for this place, enjoy your day.";
+            return;
+        }
+
+        weatherInfo.innerHTML = `City: ${
+          cityInput.charAt(0).toUpperCase() + cityInput.slice(1)
+        } <br> Temperature: ${temperature} <br> Humidity: ${humidity} <br> Date: ${formattedDate} <br> Time: ${formattedTime}`;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Weather App</h1>
+      <form id="search-form" onsubmit="displayCity(event)">
+        <input
+          type="text"
+          id="city-input"
+          placeholder="Enter city name (California, Canada, florida, Michigan, texas, omaha, mississppi)"
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+      <p id="weather-info">
+        Weather for california, canada, florida, michigan, omaha, mississippi.
+      </p>
+    </div>
+  </body>
+</html>
